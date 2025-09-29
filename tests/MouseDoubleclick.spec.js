@@ -6,10 +6,9 @@ test("Mouse doublrclick action", async({page})=>{
 
     const double=  await page.locator('//button[normalize-space()="Copy Text"]');
     await double.dblclick();
-
+    
     const text= await page.locator('#field2');
-
+    
     await expect(text).toHaveValue('Hello World!');
-
-   await page.waitForTimeout(5000);
+    await page.waitForTimeout(5000);
 })
