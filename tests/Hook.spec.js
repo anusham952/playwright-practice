@@ -18,5 +18,6 @@ test.beforeEach('Hook' , async({browser})=>{
     test.afterEach(async()=>{
 
         await page.locator('#logout2').click();
+        
     })
 })
