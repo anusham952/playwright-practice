@@ -11,8 +11,10 @@ test("Handling Checkboxs", async({page})=>{
     await page.locator('//input[@id="monday"]').uncheck();
     await page.locator('//input[@id="sunday"]').uncheck();
 
-    //Multiple checkboxes
+    //Multiple oiurewq  90
     const box=[page.locator('//input[@id="sunday"]'),
+
+        
                page.locator('//input[@id="monday"]'),
                page.locator('//input[@id="tuesday"]')];
 

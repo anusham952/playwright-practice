@@ -1,23 +1,50 @@
-const {test , expect}= require('@playwright/test')
+const{test, expect} = require('@playwright/test')
 
-let page;
+test("automateApp", async({page})=>{
+//open browser and login
 
-test.beforeEach('Hook' , async({browser})=>{
+await page.goto('https://www.demoblaze.com/');
+await page.locator('#login2').click();
+await page.locator('#loginusername').fill('pavanol')
+await page.locator('#loginpassword').fill('test@123')
+await page.locator('//button[normalize-space()="Log in"]').click();
 
-    page = await browser.newPage();
-    await page.goto('https://demoblaze.com/index.html');
+//app validate
+const products= await page.$$('.hrefch')
+expect(products).toHaveLength(9);
 
-    //Login
-    await page.locator('#login2').click();
-    await page.locator('#loginusername').fill('pavanol1');
-    await page.locator('#loginpassword').fill('test@123');
-    await page.locator("//button[normalize-space()='Log in']").click();
+//logour
+await page.locator('#logout2').click();
+
+})
 
 
 
-    test.afterEach(async()=>{
+test("add product to cart", async({page})=>{
+//open browser and login
 
-        await page.locator('#logout2').click();
-        
-    })
+await page.goto('https://www.demoblaze.com/');
+await page.locator('#login2').click();
+await page.locator('#loginusername').fill('pavanol')
+await page.locator('#loginpassword').fill('test@123')
+await page.locator('//button[normalize-space()="Log in"]').click();
+
+//app validate
+const products= await page.$$('.hrefch')
+expect(products).toHaveLength(9);
+
+
+//add to the cart
+await page.locator('//a[normalize-space()="Samsung galaxy s6"]').click()
+await page.locator('//a[normalize-space()="Add to cart"]')
+
+//dialogbox
+page.on("dialog", async dialog=>{
+    expect(dialog.message()).toContain('Product added.');
+    await dialog.accept();
+})
+
+//logour
+await page.locator('#logout2').click();
+
 })
